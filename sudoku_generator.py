@@ -51,8 +51,13 @@ class SudokuGenerator:
 	Return: None
     '''
     def print_board(self):
-        item = self.get_board()
-        print(item)
+        # item = self.get_board()
+        # print(item)
+
+        for row in self.board:  # row: ["-", "-", "-"]
+            for col in row:
+                print(col, end=" ")
+            print()
 
     '''
 	Determines if num is contained in the specified row (horizontal) of the board
