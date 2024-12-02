@@ -25,7 +25,7 @@ class SudokuGenerator:
     def __init__(self, row_length=9, removed_cells=0):
         self.row_length = row_length
         self.removed_cells = removed_cells #Abby: I don't know exactly how to define this, fix pls if needed <3
-        #self.board = [] Abby: ??? :(
+        self.board = self.get_board()
         self.box_length = math.sqrt(row_length)
 
     '''
