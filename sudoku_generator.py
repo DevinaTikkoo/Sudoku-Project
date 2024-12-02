@@ -22,8 +22,11 @@ class SudokuGenerator:
 	Return:
 	None
     '''
-    def __init__(self, row_length, removed_cells):
-        self.row_length = 9
+    def __init__(self, row_length=9, removed_cells=0):
+        self.row_length = row_length
+        self.removed_cells = removed_cells #Abby: I don't know exactly how to define this, fix pls if needed <3
+        #self.board = [] Abby: ??? :(
+        self.box_length = math.sqrt(row_length)
 
     '''
 	Returns a 2D python list of numbers which represents the board
@@ -32,7 +35,13 @@ class SudokuGenerator:
 	Return: list[list]
     '''
     def get_board(self):
-        pass
+        board = []
+        for x in range(int(9)):
+            board.append([])
+            for y in range(int(9)):
+                board[x].append("")
+        return board #Abby: probably should use the row_length attribute, but I couldn't get it to work :(
+
 
     '''
 	Displays the board to the console
@@ -42,7 +51,8 @@ class SudokuGenerator:
 	Return: None
     '''
     def print_board(self):
-        pass
+        item = self.get_board()
+        print(item)
 
     '''
 	Determines if num is contained in the specified row (horizontal) of the board
@@ -209,3 +219,9 @@ def generate_sudoku(size, removed):
     sudoku.remove_cells()
     board = sudoku.get_board()
     return board
+
+"""
+#Prints the Board for you:
+sudoku = SudokuGenerator()
+sudoku.print_board()
+"""
