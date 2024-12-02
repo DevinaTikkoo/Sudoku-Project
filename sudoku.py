@@ -15,7 +15,7 @@ def main():
         while running:
             for event in pygame.event.get():
                 screen.fill((0, 0, 255))
-                #^ could be replaced with image or something
+                #^ could be replaced with image or something, this is just an obvious color to show that it works
                 pygame.display.flip()
                 if event.type == pygame.QUIT:
                     running = False
