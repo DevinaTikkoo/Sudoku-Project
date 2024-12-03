@@ -1,4 +1,4 @@
-import math,random
+import math,random,board
 
 """
 This was adapted from a GeeksforGeeks article "Program for Sudoku Generator" by Aarti_Rathi and Ankur Trisal
@@ -215,7 +215,11 @@ class SudokuGenerator:
 	Return: None
     '''
     def remove_cells(self):
-        pass
+        while board.count(0) != self.removal:
+            x = random.randrange(0, 9)
+            y = random.randrange(0, 9)
+            if self.board[x][y] != 0:
+                self.board[x][y] = 0
 
 '''
 DO NOT CHANGE
