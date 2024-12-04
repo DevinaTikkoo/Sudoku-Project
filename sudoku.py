@@ -1,4 +1,5 @@
 import pygame,board,sudoku_generator
+from button import Button
 
 #initializes pygame
 def main():
@@ -25,6 +26,27 @@ def main():
                 screen.blit(shadow, (95, 81))
                 screen.blit(text_surface, (100, 80))
                 #consider this?
+                b1 = Button(40, 400, "EASY", 120)
+                b2 = Button(180, 400, "MEDIUM", 120)
+                b3 = Button(320, 400, "HARD", 120)
+                buttons = [b1, b2, b3]
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if pygame.mouse.get_pressed()[0]:
+                        mouse_x, mouse_y = pygame.mouse.get_pos()
+                        for button in buttons:
+                            button.check_click(mouse_x, mouse_y)
+
+
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            for button in buttons:
+                button.check_button(mouse_x, mouse_y)
+
+                my_font = pygame.font.SysFont('Arial', 20)
+                for button in buttons:
+                    button.draw_btn(screen, my_font)
+
+                pygame.display.update()
 
                 pygame.display.flip()
                 if event.type == pygame.QUIT:
