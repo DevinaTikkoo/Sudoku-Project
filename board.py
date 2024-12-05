@@ -1,5 +1,5 @@
 import pygame
-#from cell import Cell #temporary commented out just so that sudoku.py can run
+from cell import Cell
 from sudoku_generator import SudokuGenerator
 '''
 Navigation tips on the board:

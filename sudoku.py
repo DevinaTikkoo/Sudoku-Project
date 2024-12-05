@@ -1,4 +1,6 @@
-import pygame,board,sudoku_generator
+import pygame
+from board import Board
+from sudoku_generator import SudokuGenerator
 from button import Button
 
 #initializes pygame
@@ -26,6 +28,7 @@ def main():
                 screen.blit(shadow, (95, 81))
                 screen.blit(text_surface, (100, 80))
                 #consider this?
+
                 b1 = Button(40, 400, "EASY", 120)
                 b2 = Button(180, 400, "MEDIUM", 120)
                 b3 = Button(320, 400, "HARD", 120)
@@ -35,7 +38,11 @@ def main():
                     if pygame.mouse.get_pressed()[0]:
                         mouse_x, mouse_y = pygame.mouse.get_pos()
                         for button in buttons:
-                            button.check_click(mouse_x, mouse_y)
+                            if button.check_click(mouse_x, mouse_y):
+                                print(f"Button {button.txt} clicked!")
+                                if button.txt == "EASY":
+                                    draw_board = Board(width, height, screen, "easy")
+                                    draw_board.init_board()
 
 
             mouse_x, mouse_y = pygame.mouse.get_pos()
