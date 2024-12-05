@@ -154,7 +154,7 @@ class SudokuGenerator:
 	Return: None
     '''
     def fill_diagonal(self):
-        for i in range(0, int(self.row_length), int(self.box_length)):
+        for i in range(0, self.row_length, 3):
             self.fill_box(i,i)
     '''
     DO NOT CHANGE
