@@ -22,6 +22,11 @@ def main():
         b3 = Button(320, 400, "HARD", 120)
         buttons = [b1, b2, b3]
 
+        b4 = Button(40, 400, "Reset", 120)
+        b5 = Button(180, 400, "Restart", 120)
+        b6 = Button(320, 400, "Exit", 120)
+        game_buttons = [b4, b5, b6]
+
         while running:
             for event in pygame.event.get():
                 mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -36,6 +41,11 @@ def main():
                             if button.check_click(mouse_x, mouse_y):
                                 print(f"Button {button.txt} clicked!")
                                 if button.txt == "EASY":
+                                    draw_board = Board(9, 9, screen, "easy")
+                        for button in game_buttons:
+                            if button.check_click(mouse_x, mouse_y):
+                                print(f"Button {button.txt} clicked!")
+                                if button.txt == "Exit":
                                     draw_board = Board(9, 9, screen, "easy")
 
 
@@ -55,6 +65,11 @@ def main():
             else:
                 screen.fill((0, 0, 255))
                 draw_board.draw()
+
+                for button in game_buttons:
+                    button.check_button(mouse_x, mouse_y)
+                    button.draw_btn(screen, pygame.font.SysFont('Arial', 20))
+
             pygame.display.update()
 
     finally:

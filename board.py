@@ -69,7 +69,7 @@ class Board:
         # step 3: draw cells, including border and numbers
         for row in range(self.height):
             for col in range(self.width):
-                self.board[row][col].draw_cell(font1, font2, font3)
+                self.board[row][col].draw()
     def select(self, row, col):
         """ Marks the cell at (row, col) as the current selected cell"""
         # step 1： set the last selected cell to be not-selected
