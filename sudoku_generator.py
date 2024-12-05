@@ -136,10 +136,10 @@ class SudokuGenerator:
     def fill_box(self, row_start, col_start):
         for x in range(row_start+2):
             for y in range(col_start+2):
-                random = random.randint(1, 9)
-                while not random.is_valid(row_start + x , col_start + y, random):
-                    random = random.randint(1, 9)
-                self.board[row_start + x][col_start + y] = random
+                num = random.randint(1, 9)
+                while not self.is_valid(row_start + x , col_start + y, num):
+                    num = random.randint(1, 9)
+                self.board[row_start + x][col_start + y] = num
     #two for loops
     #while not valid
     #check is valid
