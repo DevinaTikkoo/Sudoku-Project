@@ -40,9 +40,12 @@ def main():
                         for button in buttons:
                             if button.check_click(mouse_x, mouse_y):
                                 print(f"Button {button.txt} clicked!")
-                                if button.txt == "EASY":
-                                    draw_board = Board(width, height, screen, "easy")
-                                    draw_board.init_board()
+                                board = Board(width, height, screen, "easy")
+                                screen.fill((255,255,255))
+            # if board:
+            #     board.draw()
+
+
 
 
             mouse_x, mouse_y = pygame.mouse.get_pos()
