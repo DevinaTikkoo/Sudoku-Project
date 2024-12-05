@@ -36,11 +36,11 @@ class SudokuGenerator:
     '''
     def get_board(self):
         board = []
-        for x in range(int(9)):
+        for x in range(self.row_length):
             board.append([])
-            for y in range(int(9)):
+            for y in range(self.row_length):
                 board[x].append("")
-        return board #Abby: probably should use the row_length attribute, but I couldn't get it to work :(
+        return board
 
 
     '''
@@ -220,7 +220,7 @@ class SudokuGenerator:
 	Return: None
     '''
     def remove_cells(self):
-        while self.board.count(0) != self.removal:
+        while self.board.count(0) < self.removed_cells:
             x = random.randrange(0, 9)
             y = random.randrange(0, 9)
             if self.board[x][y] != 0:

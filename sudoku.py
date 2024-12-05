@@ -9,30 +9,25 @@ def main():
         pygame.init()
 
         #sets up the screen :)
-        width, height = 480, 480
+        width, height = 540,620
         screen = pygame.display.set_mode((width, height))
         pygame.display.set_caption("Sudoku") #not necessary, I just want to feel fancy
         maple = pygame.image.load("maple.jpg").convert()
 
+        draw_board = None
         running = True
+
+        b1 = Button(40, 400, "EASY", 120)
+        b2 = Button(180, 400, "MEDIUM", 120)
+        b3 = Button(320, 400, "HARD", 120)
+        buttons = [b1, b2, b3]
 
         while running:
             for event in pygame.event.get():
-                #screen.fill((0, 0, 255)) #full screen fill
-                screen.blit(maple, (0,0))
-                #background image fill! It's currently a very zoomed in maple tree image, we can change it if we want
+                mouse_x, mouse_y = pygame.mouse.get_pos()
 
-                my_font = pygame.font.Font('C:\Windows\Fonts\ITCEDSCR.ttf', 120)
-                text_surface = my_font.render('Sudoku', False, (0, 0, 0))
-                shadow = my_font.render('Sudoku', False, (255, 255, 255))
-                screen.blit(shadow, (95, 81))
-                screen.blit(text_surface, (100, 80))
-                #consider this?
-
-                b1 = Button(40, 400, "EASY", 120)
-                b2 = Button(180, 400, "MEDIUM", 120)
-                b3 = Button(320, 400, "HARD", 120)
-                buttons = [b1, b2, b3]
+                if event.type == pygame.QUIT:
+                    running = False
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if pygame.mouse.get_pressed()[0]:
@@ -40,27 +35,27 @@ def main():
                         for button in buttons:
                             if button.check_click(mouse_x, mouse_y):
                                 print(f"Button {button.txt} clicked!")
-                                board = Board(width, height, screen, "easy")
-                                screen.fill((255,255,255))
-            # if board:
-            #     board.draw()
+                                if button.txt == "EASY":
+                                    draw_board = Board(520, 620, 45, "easy")
+                                if draw_board:
+                                    screen.fill((255, 255, 255))  # Clear the screen with white
+                                    pygame.display.flip()
 
+            #screen.fill((0, 0, 255)) #full screen fill
+            if draw_board is None:
+                screen.blit(maple, (0,0))
+                my_font = pygame.font.Font('C:\Windows\Fonts\ITCEDSCR.ttf', 120)
+                text_surface = my_font.render('Sudoku', False, (0, 0, 0))
+                shadow = my_font.render('Sudoku', False, (255, 255, 255))
+                screen.blit(shadow, (95, 81))
+                screen.blit(text_surface, (100, 80))
+            #consider this?
 
-
-
-            mouse_x, mouse_y = pygame.mouse.get_pos()
-            for button in buttons:
-                button.check_button(mouse_x, mouse_y)
-
-                my_font = pygame.font.SysFont('Arial', 20)
                 for button in buttons:
-                    button.draw_btn(screen, my_font)
+                    button.check_button(mouse_x, mouse_y)
+                    button.draw_btn(screen, pygame.font.SysFont('Arial', 20))
 
-                pygame.display.update()
-
-                pygame.display.flip()
-                if event.type == pygame.QUIT:
-                    running = False
+            pygame.display.update()
 
     finally:
         pygame.quit()
