@@ -36,10 +36,8 @@ def main():
                             if button.check_click(mouse_x, mouse_y):
                                 print(f"Button {button.txt} clicked!")
                                 if button.txt == "EASY":
-                                    draw_board = Board(520, 620, 45, "easy")
-                                if draw_board:
-                                    screen.fill((255, 255, 255))  # Clear the screen with white
-                                    pygame.display.flip()
+                                    draw_board = Board(9, 9, screen, "easy")
+
 
             #screen.fill((0, 0, 255)) #full screen fill
             if draw_board is None:
@@ -54,7 +52,9 @@ def main():
                 for button in buttons:
                     button.check_button(mouse_x, mouse_y)
                     button.draw_btn(screen, pygame.font.SysFont('Arial', 20))
-
+            else:
+                screen.fill((0, 0, 255))
+                draw_board.draw()
             pygame.display.update()
 
     finally:
