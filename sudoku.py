@@ -82,8 +82,8 @@ def main():
                         if key == pygame.K_BACKSPACE:
                             draw_board.clear()
                         if key == pygame.K_RETURN:
-                            if draw_board.selected_cell.value is not None:
-                                draw_board.place_number(draw_board.selected_cell.value)
+                            if draw_board.selected_cell.sketched_value is not None:
+                                draw_board.place_number(draw_board.selected_cell.sketched_value)
 
                         if key == pygame.K_LEFT and draw_board.selected_cell.row > 0:
                             draw_board.select(draw_board.selected_cell.row - 1, draw_board.selected_cell.col)
@@ -102,14 +102,13 @@ def main():
                 shadow = cursiveFont.render('Sudoku', False, (255, 255, 255))
                 screen.blit(shadow, (117, 81))
                 screen.blit(text_surface, (120, 80))
-            #consider this?
 
                 for button in buttons:
                     button.check_button(mouse_x, mouse_y)
                     button.draw_btn(screen, pygame.font.SysFont('Arial', 20))
 
             '''This generates the game's graphics'''
-            elif state == "game":
+            if state == "game":
                 screen.fill((255,140,0))
                 draw_board.draw()
 

@@ -26,6 +26,10 @@ class Cell:
         pygame.draw.rect(self.screen, (255, 255, 255), (self.x, self.y, self.size, self.size))
         pygame.draw.rect(self.screen, (0, 0, 0), (self.x, self.y, self.size, self.size),1)
 
+        # Makes the outline red
+        if self.selected:
+            pygame.draw.rect(self.screen, (255, 0, 0), (self.x, self.y, self.size, self.size), 4)
+
         if self.value != 0:
             #writes the value when it isn't 0
             font = pygame.font.SysFont("Arial", 36)
@@ -40,7 +44,3 @@ class Cell:
             text_rect = text.get_rect(topleft=(self.x + 7, self.y + 7))
             self.screen.blit(text, text_rect)
         #it won't print anything if there is no value
-
-# Makes the outline red
-        if self.selected:
-            pygame.draw.rect(self.screen, (255, 0, 0), (self.x, self.y, self.size, self.size), 4)
