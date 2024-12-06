@@ -9,6 +9,17 @@ screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Sudoku") #not necessary, I just want to feel fancy
 maple = pygame.image.load("maple.jpg").convert()
 
+def game_over_screen():
+    screen.blit(maple, (0, 0))
+    cursiveFont = pygame.font.Font('C:\Windows\Fonts\ITCEDSCR.ttf', 120)
+    text_surface = cursiveFont.render('Game Over', False, (0, 0, 0))
+    shadow = cursiveFont.render('Game Over', False, (255, 255, 255))
+    screen.blit(shadow, (117, 81))
+    screen.blit(text_surface, (120, 80))
+
+def game_win_screen():
+    pass
+
 #initializes pygame
 def main():
     try:
@@ -44,7 +55,7 @@ def main():
                                     draw_board = Board(9,9,screen,"easy",sudoku)
                                 elif button.txt == "MEDIUM" and button.active == True:
                                     sudoku = sudoku_generator.generate_sudoku(9,40)
-                                    draw_board = Board(9,9,screen,"easy",sudoku)
+                                    draw_board = Board(9,9,screen,"medium",sudoku)
                                 elif button.txt == "HARD" and button.active == True:
                                     sudoku = sudoku_generator.generate_sudoku(9,50)
                                     draw_board = Board(9,9,screen,"hard",sudoku)
@@ -60,7 +71,7 @@ def main():
                             if button.check_click(mouse_x, mouse_y):
                                 print(f"Button {button.txt} clicked!")
                                 if button.txt == "Reset":
-                                    running = False
+                                    draw_board.reset_to_original()
                                 if button.txt == "Restart":
                                     state = "menu"
                                     for button in buttons:
@@ -87,6 +98,11 @@ def main():
                         if key == pygame.K_DOWN and draw_board.selected_cell.col < 8:
                             draw_board.select(draw_board.selected_cell.row, draw_board.selected_cell.col + 1)
 
+                        #attempting to end game and put new screen
+                        if draw_board.is_full():
+                            print("Board is full")
+                            state = "game over"
+                            game_over_screen()
             if state == "menu":
                 screen.blit(maple, (0,0))
                 cursiveFont = pygame.font.Font('C:\Windows\Fonts\ITCEDSCR.ttf', 120)
@@ -107,6 +123,8 @@ def main():
                 for button in game_buttons:
                     button.check_button(mouse_x, mouse_y)
                     button.draw_btn(screen, pygame.font.SysFont('Arial', 20))
+
+
 
             pygame.display.update()
 

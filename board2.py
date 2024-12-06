@@ -2,6 +2,7 @@ import button
 from cell import Cell
 import pygame
 
+#constants
 CELL_SIZE = 60
 GRID_SIZE = 9
 
@@ -91,8 +92,8 @@ class Board :
         #og 0s mean for user input so change those back to 0
         for i in range(GRID_SIZE):
             for j in range(GRID_SIZE):
-                if self.board[i][j] != self.og_values[i][j]:
-                    self.board[i][j] = 0
+                self.board[i][j].value = self.og_values[i][j]
+                self.board[i][j].sketched_value = None
 
     def is_full(self):
         #loop through board and check for 0s
@@ -112,4 +113,4 @@ class Board :
         for i in range(GRID_SIZE):
             for j in range(GRID_SIZE):
                 if self.board[i][j].value == 0:
-                    return tuple(i,j)
+                    return (i,j)
