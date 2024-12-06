@@ -41,9 +41,9 @@ def main():
                             if button.check_click(mouse_x, mouse_y):
                                 print(f"Button {button.txt} clicked!")
                                 if button.txt == "EASY":
-                                    draw_board = Board(9, 9, screen, "easy")
-                                    sudoku = SudokuGenerator()
-                                    print(sudoku.board)
+                                    sudoku = SudokuGenerator(9,30)
+                                    sudoku.fill_values()
+                                    print(sudoku.print_board())
                         for button in game_buttons:
                             if button.check_click(mouse_x, mouse_y):
                                 print(f"Button {button.txt} clicked!")
