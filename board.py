@@ -18,30 +18,30 @@ class Board:
             self.removal = 40
         elif difficulty == "hard":
             self.removal = 50
-        self.unfilled = self.removal
-        self.board = self.init_board() # keeps a 2D list of Cell objects
-        self.cur_row = 4 # the selected cell, row number
-        self.cur_col = 4 # the selected cell, column number
-        self.select(self.cur_col,self.cur_row)
-    def init_board(self):
-        """initiate a board, fill values, hide some of them"""
-        sudoku = SudokuGenerator(self.width, self.unfilled)
-        sudoku.fill_values() # generate a sudoku solution
-        bl = []
-        for row in range(self.height):
-            bl.append([])
-            for col in range(self.width):
-                # use sudoku solution to initiate Cell objects
-                cell = Cell(sudoku.board[row][col], row, col, self.screen)
-                bl[row].append(cell)
-        # remove part of sudoku solutions
-        sudoku.remove_cells()
-        for row in range(self.width):
-            for col in range(self.width):
-                if sudoku.board[row][col] == 0:
-                    # set corresponding "hidden" attribute
-                    bl[row][col].hidden = True
-        return bl
+    #     self.unfilled = self.removal
+    #     self.board = self.init_board() # keeps a 2D list of Cell objects
+    #     self.cur_row = 4 # the selected cell, row number
+    #     self.cur_col = 4 # the selected cell, column number
+    #     self.select(self.cur_col,self.cur_row)
+    # def init_board(self):
+    #     """initiate a board, fill values, hide some of them"""
+    #     sudoku = SudokuGenerator(self.width, self.unfilled)
+    #     sudoku.fill_values() # generate a sudoku solution
+    #     bl = []
+    #     for row in range(self.height):
+    #         bl.append([])
+    #         for col in range(self.width):
+    #             # use sudoku solution to initiate Cell objects
+    #             cell = Cell(sudoku.board[row][col], row, col, self.screen)
+    #             bl[row].append(cell)
+    #     # remove part of sudoku solutions
+    #     sudoku.remove_cells()
+    #     for row in range(self.width):
+    #         for col in range(self.width):
+    #             if sudoku.board[row][col] == 0:
+    #                 # set corresponding "hidden" attribute
+    #                 bl[row][col].hidden = True
+    #     return bl
     def draw(self):
         # set fonts used in each cell
         font1 = pygame.font.SysFont('Arial', 20)

@@ -1,4 +1,4 @@
-import math,random,board
+import math,random,board2
 
 """
 This was adapted from a GeeksforGeeks article "Program for Sudoku Generator" by Aarti_Rathi and Ankur Trisal

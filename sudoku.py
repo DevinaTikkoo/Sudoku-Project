@@ -1,7 +1,13 @@
 import pygame
-from board import Board
-from sudoku_generator import SudokuGenerator
+
+from board2 import Board
+import sudoku_generator
 from button import Button
+
+width, height = 540,620
+screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption("Sudoku") #not necessary, I just want to feel fancy
+maple = pygame.image.load("maple.jpg").convert()
 
 #initializes pygame
 def main():
@@ -9,10 +15,7 @@ def main():
         pygame.init()
 
         #sets up the screen :)
-        width, height = 540,620
-        screen = pygame.display.set_mode((width, height))
-        pygame.display.set_caption("Sudoku") #not necessary, I just want to feel fancy
-        maple = pygame.image.load("maple.jpg").convert()
+
 
         draw_board = None
         running = True
@@ -41,9 +44,9 @@ def main():
                             if button.check_click(mouse_x, mouse_y):
                                 print(f"Button {button.txt} clicked!")
                                 if button.txt == "EASY":
-                                    sudoku = SudokuGenerator(9,30)
-                                    sudoku.fill_values()
-                                    print(sudoku.print_board())
+                                    sudoku = sudoku_generator.generate_sudoku(9,30)
+                                    draw_board = Board(9,9,screen,"easy")
+                                    draw_board.draw()
                         for button in game_buttons:
                             if button.check_click(mouse_x, mouse_y):
                                 print(f"Button {button.txt} clicked!")

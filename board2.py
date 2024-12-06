@@ -1,6 +1,6 @@
 import button
 import cell
-import sudoku_generator
+import pygame
 
 CELL_SIZE = 60
 GRID_SIZE = 9
@@ -22,7 +22,11 @@ class Board :
         #In main will set this equal to board from self.board
         self.og_values = None
     def draw(self):
-        pass
+        screen = pygame.display.set_mode((GRID_SIZE*CELL_SIZE, GRID_SIZE*CELL_SIZE+100))
+        for x in range(0, GRID_SIZE*CELL_SIZE, CELL_SIZE):
+            for y in range(0, GRID_SIZE*CELL_SIZE, CELL_SIZE):
+                pygame.draw.line(screen, "pink", [x, y], [x + CELL_SIZE, y],1)
+                pygame.draw.line(screen, "pink", [x, y], [x, y + CELL_SIZE],1)
 
     def select(self, row, col):
         if self.selected_cell:
