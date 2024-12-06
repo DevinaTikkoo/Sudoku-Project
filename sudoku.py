@@ -17,6 +17,7 @@ def main():
         running = True
         state = "menu"
 
+        '''This sets up all the button objects'''
         b1 = Button(80, 480, "EASY", 120,True)
         b2 = Button(210, 480, "MEDIUM", 120,True)
         b3 = Button(340, 480, "HARD", 120,True)
@@ -34,6 +35,7 @@ def main():
                 if event.type == pygame.QUIT:
                     running = False
 
+                '''This handles all button presses on the menu'''
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if pygame.mouse.get_pressed()[0]:
                         mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -51,11 +53,14 @@ def main():
                                 for button in buttons:
                                     button.active = False
                                 state = "game"
+
+                        '''This checks and highlights the selected cell'''
                         if state == "game":
                             clicked_cell = draw_board.click(mouse_x, mouse_y)
                             if clicked_cell:
                                 print(f"Cell clicked: {clicked_cell}")
 
+                        '''This handles all button presses on the game screen'''
                         for button in game_buttons:
                             if button.check_click(mouse_x, mouse_y):
                                 print(f"Button {button.txt} clicked!")
@@ -68,6 +73,7 @@ def main():
                                 if button.txt == "Exit":
                                     running = False
 
+                '''This handles all key presses'''
                 if event.type == pygame.KEYDOWN:
                     if state == "game" and draw_board.selected_cell:
                         key = event.key
@@ -76,7 +82,8 @@ def main():
                         if key == pygame.K_BACKSPACE:
                             draw_board.clear()
                         if key == pygame.K_RETURN:
-                            draw_board.place_number(draw_board.selected_cell.value)
+                            if draw_board.selected_cell.value is not None:
+                                draw_board.place_number(draw_board.selected_cell.value)
 
                         if key == pygame.K_LEFT and draw_board.selected_cell.row > 0:
                             draw_board.select(draw_board.selected_cell.row - 1, draw_board.selected_cell.col)
@@ -87,6 +94,7 @@ def main():
                         if key == pygame.K_DOWN and draw_board.selected_cell.col < 8:
                             draw_board.select(draw_board.selected_cell.row, draw_board.selected_cell.col + 1)
 
+            '''This generates the menu's graphics'''
             if state == "menu":
                 screen.blit(maple, (0,0))
                 cursiveFont = pygame.font.Font('C:\Windows\Fonts\ITCEDSCR.ttf', 120)
@@ -100,6 +108,7 @@ def main():
                     button.check_button(mouse_x, mouse_y)
                     button.draw_btn(screen, pygame.font.SysFont('Arial', 20))
 
+            '''This generates the game's graphics'''
             elif state == "game":
                 screen.fill((255,140,0))
                 draw_board.draw()
