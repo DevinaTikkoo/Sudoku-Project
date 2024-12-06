@@ -105,11 +105,19 @@ def main():
                         if key == pygame.K_RETURN:
                             if draw_board.selected_cell.value is not None:
                                 draw_board.place_number(draw_board.selected_cell.value)
+
+                                '''This detects whether the user has won or lost when board is full
+                                and displays the appropriate game over or game win screen '''
                                 result = draw_board.check_board()
                                 if result == True:
-                                    print("you win!")
+                                    print("Valid win")
+                                    for button in game_buttons:
+                                        button.active = False
+                                    state = "game_win"
                                 elif result == False:
-                                    print("nah")
+                                    for button in game_buttons:
+                                        button.active = False
+                                    state = "game_over"
 
                         if key == pygame.K_LEFT and draw_board.selected_cell.row > 0:
                             draw_board.select(draw_board.selected_cell.row - 1, draw_board.selected_cell.col)
@@ -119,19 +127,6 @@ def main():
                             draw_board.select(draw_board.selected_cell.row, draw_board.selected_cell.col - 1)
                         if key == pygame.K_DOWN and draw_board.selected_cell.col < 8:
                             draw_board.select(draw_board.selected_cell.row, draw_board.selected_cell.col + 1)
-                        '''This detects whether the user has won or lost when board is full
-                            and displays the appropriate game over or game win screen '''
-                        if draw_board.is_full():
-                            print("Board is full!")
-                            for button in game_buttons:
-                                button.active = False
-                            state = "game_over"
-
-                        # if ...:
-                        #     print("Valid win")
-                        #     for button in game_buttons:
-                        #         button.active = False
-                        #     state = "game_win"
 
 
             if state == "menu":
