@@ -22,9 +22,9 @@ def main():
         b3 = Button(320, 400, "HARD", 120)
         buttons = [b1, b2, b3]
 
-        b4 = Button(40, 400, "Reset", 120)
-        b5 = Button(180, 400, "Restart", 120)
-        b6 = Button(320, 400, "Exit", 120)
+        b4 = Button(40, 560, "Reset", 80)
+        b5 = Button(180, 560, "Restart", 80)
+        b6 = Button(320, 560, "Exit", 80)
         game_buttons = [b4, b5, b6]
 
         while running:
@@ -42,19 +42,19 @@ def main():
                                 print(f"Button {button.txt} clicked!")
                                 if button.txt == "EASY":
                                     draw_board = Board(9, 9, screen, "easy")
+                                    sudoku = SudokuGenerator()
+                                    print(sudoku.board)
                         for button in game_buttons:
                             if button.check_click(mouse_x, mouse_y):
                                 print(f"Button {button.txt} clicked!")
                                 if button.txt == "Exit":
-                                    draw_board = Board(9, 9, screen, "easy")
+                                    running = False
 
-
-            #screen.fill((0, 0, 255)) #full screen fill
             if draw_board is None:
                 screen.blit(maple, (0,0))
-                my_font = pygame.font.Font('C:\Windows\Fonts\ITCEDSCR.ttf', 120)
-                text_surface = my_font.render('Sudoku', False, (0, 0, 0))
-                shadow = my_font.render('Sudoku', False, (255, 255, 255))
+                cursiveFont = pygame.font.Font('C:\Windows\Fonts\ITCEDSCR.ttf', 120)
+                text_surface = cursiveFont.render('Sudoku', False, (0, 0, 0))
+                shadow = cursiveFont.render('Sudoku', False, (255, 255, 255))
                 screen.blit(shadow, (95, 81))
                 screen.blit(text_surface, (100, 80))
             #consider this?
