@@ -1,12 +1,13 @@
 import pygame
 
 class Button:
-    def __init__(self, x, y, text, size):
+    def __init__(self, x, y, text, size,active=True):
         self.x = x # top left corner x-coordinate
         self.y = y # top left corner y-coordinate
         self.txt = text # button text
         self.w = size # button width
         self.h = int(size / 2) # button height
+        self.active = active
         self.on = False # True when mouse moved within button
     def check_button(self, x, y):
         if self.x < x < self.x + self.w and self.y < y < self.y + self.h:

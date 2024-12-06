@@ -29,6 +29,7 @@ class Cell:
             text = font.render(str(self.value), True, (0, 0, 0))
             text_rect = text.get_rect(center=(self.x + self.size // 2, self.y + self.size // 2))
             self.screen.blit(text, text_rect)
+
         if self.sketched_value is not None:
             #writes the sketched value
             font = pygame.font.Font("Arial", 36)

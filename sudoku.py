@@ -14,20 +14,18 @@ def main():
     try:
         pygame.init()
 
-        #sets up the screen :)
-
-
         draw_board = None
         running = True
+        state = "menu"
 
-        b1 = Button(40, 400, "EASY", 120)
-        b2 = Button(180, 400, "MEDIUM", 120)
-        b3 = Button(320, 400, "HARD", 120)
+        b1 = Button(40, 400, "EASY", 120,True)
+        b2 = Button(180, 400, "MEDIUM", 120,True)
+        b3 = Button(320, 400, "HARD", 120,True)
         buttons = [b1, b2, b3]
 
-        b4 = Button(40, 560, "Reset", 80)
-        b5 = Button(180, 560, "Restart", 80)
-        b6 = Button(320, 560, "Exit", 80)
+        b4 = Button(40, 560, "Reset", 80,False)
+        b5 = Button(180, 560, "Restart", 80,False)
+        b6 = Button(320, 560, "Exit", 80,False)
         game_buttons = [b4, b5, b6]
 
         while running:
@@ -42,18 +40,30 @@ def main():
                         mouse_x, mouse_y = pygame.mouse.get_pos()
                         for button in buttons:
                             if button.check_click(mouse_x, mouse_y):
-                                print(f"Button {button.txt} clicked!")
-                                if button.txt == "EASY":
+                                if button.txt == "EASY" and button.active == True:
                                     sudoku = sudoku_generator.generate_sudoku(9,30)
-                                    draw_board = Board(9,9,screen,"easy")
-                                    draw_board.draw()
+                                    draw_board = Board(9,9,screen,"easy",sudoku)
+                                elif button.txt == "MEDIUM" and button.active == True:
+                                    sudoku = sudoku_generator.generate_sudoku(9,40)
+                                    draw_board = Board(9,9,screen,"easy",sudoku)
+                                elif button.txt == "HARD" and button.active == True:
+                                    sudoku = sudoku_generator.generate_sudoku(9,50)
+                                    draw_board = Board(9,9,screen,"hard",sudoku)
+                                for button in buttons:
+                                    button.active = False
+                                state = "game"
+
                         for button in game_buttons:
                             if button.check_click(mouse_x, mouse_y):
                                 print(f"Button {button.txt} clicked!")
+                                if button.txt == "Reset":
+                                    running = False
+                                if button.txt == "Restart":
+                                    state = "menu"
                                 if button.txt == "Exit":
                                     running = False
 
-            if draw_board is None:
+            if state == "menu":
                 screen.blit(maple, (0,0))
                 cursiveFont = pygame.font.Font('C:\Windows\Fonts\ITCEDSCR.ttf', 120)
                 text_surface = cursiveFont.render('Sudoku', False, (0, 0, 0))
@@ -65,7 +75,7 @@ def main():
                 for button in buttons:
                     button.check_button(mouse_x, mouse_y)
                     button.draw_btn(screen, pygame.font.SysFont('Arial', 20))
-            else:
+            elif state == "game":
                 screen.fill((0, 0, 255))
                 draw_board.draw()
 

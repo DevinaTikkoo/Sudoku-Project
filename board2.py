@@ -1,5 +1,5 @@
 import button
-import cell
+from cell import Cell
 import pygame
 
 CELL_SIZE = 60
@@ -10,23 +10,30 @@ WHITE = (255,255,255)
 RED = (255, 0, 0)
 
 class Board :
-    def __init__(self, width, height, screen, difficulty):
+    def __init__(self, width, height, screen, difficulty,og_values):
         self.width = width
         self.height = height
         self.screen = screen
         self.difficulty = difficulty
 
-        self.board = [[0 for i in range(GRID_SIZE)] for j in range(GRID_SIZE)]
+        self.board = [[Cell(0, row, col, screen) for col in range(GRID_SIZE)] for row in range(GRID_SIZE)]
         self.selected_cell = None
 
         #In main will set this equal to board from self.board
-        self.og_values = None
+        self.og_values = og_values
+
     def draw(self):
-        screen = pygame.display.set_mode((GRID_SIZE*CELL_SIZE, GRID_SIZE*CELL_SIZE+100))
-        for x in range(0, GRID_SIZE*CELL_SIZE, CELL_SIZE):
-            for y in range(0, GRID_SIZE*CELL_SIZE, CELL_SIZE):
-                pygame.draw.line(screen, "pink", [x, y], [x + CELL_SIZE, y],1)
-                pygame.draw.line(screen, "pink", [x, y], [x, y + CELL_SIZE],1)
+        # for x in range(0, GRID_SIZE*CELL_SIZE, CELL_SIZE):
+        #     for y in range(0, GRID_SIZE*CELL_SIZE, CELL_SIZE):
+        #         pygame.draw.line(self.screen, "pink", [x, y], [x + CELL_SIZE, y],3)
+        #         pygame.draw.line(self.screen, "pink", [x, y], [x, y + CELL_SIZE],3)
+        for row in range(self.height):
+            for col in range(self.width):
+                self.board[row][col].draw()
+                value = self.og_values[row][col]
+                if value != 0:  # If the cell is not empty, set the value
+                    self.board[row][col].set_cell_value(value)
+
 
     def select(self, row, col):
         if self.selected_cell:
