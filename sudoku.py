@@ -119,8 +119,8 @@ def main():
                     button.draw_btn(screen, pygame.font.SysFont('Arial', 20))
 
             '''This generates the game's graphics'''
-            elif state == "game":
-                screen.fill((255,140,0))
+            if state == "game":
+                (screen.fill((255,140,0)))
                 draw_board.draw()
 
                 for button in game_buttons:
@@ -130,7 +130,6 @@ def main():
 
 
             pygame.display.update()
-
     finally:
         pygame.quit()
 
