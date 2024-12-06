@@ -55,7 +55,7 @@ def main():
                 cursiveFont = pygame.font.Font('C:\Windows\Fonts\ITCEDSCR.ttf', 120)
                 text_surface = cursiveFont.render('Sudoku', False, (0, 0, 0))
                 shadow = cursiveFont.render('Sudoku', False, (255, 255, 255))
-                screen.blit(shadow, (95, 81))
+                screen.blit(shadow, (98, 81))
                 screen.blit(text_surface, (100, 80))
             #consider this?
 
