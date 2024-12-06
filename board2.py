@@ -79,10 +79,24 @@ class Board :
         #loop through board and check for 0s
         #if none left then board is full
         for row in self.board:
-            for cell in row:
-                if cell.value == 0:
+            for i in row:
+                if i.value == 0:
                     return False
         return True
+
+    def update_board(self):
+        #may not work because functionality may be in other methods
+        #but it's a start
+        return self.board
+
+    def find_empty(self):
+        for i in range(GRID_SIZE):
+            for j in range(GRID_SIZE):
+                if self.board[i][j].value == 0:
+                    return tuple(i,j)
+
+
+
 
 
 
