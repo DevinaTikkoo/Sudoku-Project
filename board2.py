@@ -85,7 +85,12 @@ class Board :
         if self.selected_cell:
             row = self.selected_cell.row
             col = self.selected_cell.col
-            self.board[row][col].set_cell_value(value)
+
+            if self.selected_cell.sketched_value is not None:
+                self.board[row][col].set_cell_value(self.selected_cell.sketched_value)
+                self.board[row][col].sketched_value = None
+            else:
+                self.board[row][col].set_cell_value(value)
 
     def reset_to_original(self):
         #loop through current board and check if was originally 0
