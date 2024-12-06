@@ -11,14 +11,20 @@ maple = pygame.image.load("maple.jpg").convert()
 
 def game_over_screen():
     screen.blit(maple, (0, 0))
-    cursiveFont = pygame.font.Font('C:\Windows\Fonts\ITCEDSCR.ttf', 120)
+    cursiveFont = pygame.font.Font('C:\Windows\Fonts\ITCEDSCR.ttf', 100)
     text_surface = cursiveFont.render('Game Over', False, (0, 0, 0))
     shadow = cursiveFont.render('Game Over', False, (255, 255, 255))
     screen.blit(shadow, (117, 81))
     screen.blit(text_surface, (120, 80))
 
 def game_win_screen():
-    pass
+    screen.blit(maple, (0, 0))
+    cursiveFont = pygame.font.Font('C:\Windows\Fonts\ITCEDSCR.ttf', 100)
+    text_surface = cursiveFont.render('Game Win', False, (0, 0, 0))
+    shadow = cursiveFont.render('Game Win', False, (255, 255, 255))
+    screen.blit(shadow, (117, 81))
+    screen.blit(text_surface, (120, 80))
+
 
 #initializes pygame
 def main():
@@ -38,6 +44,9 @@ def main():
         b5 = Button(230, 560, "Restart", 80,False)
         b6 = Button(360, 560, "Exit", 80,False)
         game_buttons = [b4, b5, b6]
+
+        restart2 = Button(210, 420, "Restart", 120, False)
+        exit2 = Button(210, 420, "Exit", 120, False)
 
         while running:
             for event in pygame.event.get():
@@ -104,6 +113,20 @@ def main():
                             draw_board.select(draw_board.selected_cell.row, draw_board.selected_cell.col - 1)
                         if key == pygame.K_DOWN and draw_board.selected_cell.col < 8:
                             draw_board.select(draw_board.selected_cell.row, draw_board.selected_cell.col + 1)
+                        '''This detects whether the user has won or lost when board is full
+                            and displays the appropriate game over or game win screen '''
+                        if draw_board.is_full():
+                            print("Board is full!")
+                            for button in game_buttons:
+                                button.active = False
+                            state = "game_over"
+
+                        # if ...:
+                        #     print("Valid win")
+                        #     for button in game_buttons:
+                        #         button.active = False
+                        #     state = "game_win"
+
 
             if state == "menu":
                 screen.blit(maple, (0,0))
@@ -127,8 +150,31 @@ def main():
                     button.check_button(mouse_x, mouse_y)
                     button.draw_btn(screen, pygame.font.SysFont('Arial', 20))
 
+            if state == "game_over":
+                game_over_screen()
+                restart2.active = True
+                restart2.check_button(mouse_x, mouse_y)
+                restart2.draw_btn(screen, pygame.font.SysFont('Arial', 20))
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if restart2.check_click(mouse_x, mouse_y):
+                        print(f"Button {restart2.txt} 2 clicked!")
 
+                        restart2.active = False
+                        state = "menu"
 
+                        for button in buttons:
+                            button.active = True
+            if state == "game_win":
+                game_win_screen()
+                exit2.active = True
+                exit2.check_button(mouse_x, mouse_y)
+                exit2.draw_btn(screen, pygame.font.SysFont('Arial', 20))
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if restart2.check_click(mouse_x, mouse_y):
+                        print(f"Button {exit2.txt} 2 clicked!")
+
+                        exit2.active = False
+                        running = False
             pygame.display.update()
     finally:
         pygame.quit()
