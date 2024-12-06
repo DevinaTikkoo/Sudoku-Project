@@ -1,5 +1,6 @@
 import button
 from cell import Cell
+from sudoku_generator import SudokuGenerator
 import pygame
 
 #constants
@@ -119,3 +120,18 @@ class Board :
             for j in range(GRID_SIZE):
                 if self.board[i][j].value == 0:
                     return (i,j)
+
+    def check_board(self):
+        if not self.is_full():
+            return None
+
+        sudoku_gen = SudokuGenerator()
+
+        for row in range(GRID_SIZE):
+            for col in range(GRID_SIZE):
+                value = self.board[row][col].value
+                if value != 0:
+                    if not sudoku_gen.is_valid(row, col, value):
+                        return False
+        print("win!")
+        return True

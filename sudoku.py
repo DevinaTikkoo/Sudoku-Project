@@ -8,6 +8,7 @@ width, height = 540,620
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Sudoku") #not necessary, I just want to feel fancy
 maple = pygame.image.load("maple.jpg").convert()
+leaves = pygame.image.load("leaves.jpeg").convert()
 
 def game_over_screen():
     screen.blit(maple, (0, 0))
@@ -95,6 +96,11 @@ def main():
                         if key == pygame.K_RETURN:
                             if draw_board.selected_cell.value is not None:
                                 draw_board.place_number(draw_board.selected_cell.value)
+                                result = draw_board.check_board()
+                                if result == True:
+                                    print("you win!")
+                                elif result == False:
+                                    print("nah")
 
                         if key == pygame.K_LEFT and draw_board.selected_cell.row > 0:
                             draw_board.select(draw_board.selected_cell.row - 1, draw_board.selected_cell.col)
@@ -120,7 +126,7 @@ def main():
 
             '''This generates the game's graphics'''
             if state == "game":
-                (screen.fill((255,140,0)))
+                screen.blit(leaves, (0,-3000))
                 draw_board.draw()
 
                 for button in game_buttons:
