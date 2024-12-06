@@ -1,4 +1,4 @@
-import math,random,board2
+import math,random
 
 """
 This was adapted from a GeeksforGeeks article "Program for Sudoku Generator" by Aarti_Rathi and Ankur Trisal
@@ -119,16 +119,19 @@ class SudokuGenerator:
     def is_valid(self, row, col, num):
         # Check if the number is in the row
         if not self.valid_in_row(row, num):
+            print(f"Invalid: {num} already in row {row}")
             return False
 
         # Check if the number is in the column
         if not self.valid_in_col(col, num):
+            print(f"Invalid: {num} already in column {col}")
             return False
 
         # Check if the number is in the 3x3 box
-        start_row = (row // 3) * 3
-        start_col = (col // 3) * 3
-        if not self.valid_in_box(start_row, start_col, num):
+        row_start = (row // 3) * 3
+        col_start = (col // 3) * 3
+        if not self.valid_in_box(row_start, col_start, num):
+            print(f"Invalid: {num} already in box starting at ({row_start}, {col_start})")
             return False
 
         return True

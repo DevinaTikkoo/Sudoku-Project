@@ -1,4 +1,5 @@
 import button
+import sudoku_generator
 from cell import Cell
 from sudoku_generator import SudokuGenerator
 import pygame
@@ -121,14 +122,29 @@ class Board :
                 if self.board[i][j].value == 0:
                     return (i,j)
 
-    def check_board(self,board):
-        if self.is_full():
-            sudoku_gen = SudokuGenerator()
+    def check_board(self):
+        if not self.is_full():
+            return None
 
-            for row in range(GRID_SIZE):
-                for col in range(GRID_SIZE):
-                    value = self.board[row][col].value
-                    print(row,col,value, sudoku_gen.is_valid(row, col, value))
-                    if not sudoku_gen.is_valid(row, col, value):
+            # this is just the is_valid function but again. it's stupid
+        for row in range(GRID_SIZE):
+            for col in range(GRID_SIZE):
+                value = self.board[row][col].value
+                if value == 0:
+                    continue
+
+                for c in range(GRID_SIZE):
+                    if c != col and self.board[row][c].value == value:
                         return "loss"
-            return "win"
+
+                for r in range(GRID_SIZE):
+                    if r != row and self.board[r][col].value == value:
+                        return "loss"
+
+                start_row, start_col = 3 * (row // 3), 3 * (col // 3)
+                for r in range(start_row, start_row + 3):
+                    for c in range(start_col, start_col + 3):
+                        if (r != row or c != col) and self.board[r][c].value == value:
+                            return "loss"
+
+        return "win"
