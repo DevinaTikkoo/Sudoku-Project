@@ -109,12 +109,12 @@ def main():
                                 '''This detects whether the user has won or lost when board is full
                                 and displays the appropriate game over or game win screen '''
                                 result = draw_board.check_board()
-                                if result == True:
+                                if result == "win":
                                     print("Valid win")
                                     for button in game_buttons:
                                         button.active = False
                                     state = "game_win"
-                                elif result == False:
+                                elif result == "loss":
                                     for button in game_buttons:
                                         button.active = False
                                     state = "game_over"

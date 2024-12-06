@@ -121,17 +121,14 @@ class Board :
                 if self.board[i][j].value == 0:
                     return (i,j)
 
-    def check_board(self):
-        if not self.is_full():
-            return None
+    def check_board(self,board):
+        if self.is_full():
+            sudoku_gen = SudokuGenerator()
 
-        sudoku_gen = SudokuGenerator()
-
-        for row in range(GRID_SIZE):
-            for col in range(GRID_SIZE):
-                value = self.board[row][col].value
-                if value != 0:
+            for row in range(GRID_SIZE):
+                for col in range(GRID_SIZE):
+                    value = self.board[row][col].value
+                    print(row,col,value, sudoku_gen.is_valid(row, col, value))
                     if not sudoku_gen.is_valid(row, col, value):
-                        return False
-        print("win!")
-        return True
+                        return "loss"
+            return "win"

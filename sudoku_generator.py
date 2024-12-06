@@ -99,8 +99,8 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_box(self, row_start, col_start, num):
-        for i in range(int(row_start),int(row_start+3)):
-            for j in range(int(col_start),int(col_start+3)):
+        for i in range(row_start,row_start+3):
+            for j in range(col_start,col_start+3):
                 if self.board[i][j] == num:
                     return False
         return True
@@ -115,9 +115,23 @@ class SudokuGenerator:
 
 	Return: boolean
     '''
-    def is_valid(self, row, col, num):
-        return self.valid_in_row(row, num) and self.valid_in_col(col, num) and self.valid_in_box(int((row//3)*3), int((col//3)*3), num)
 
+    def is_valid(self, row, col, num):
+        # Check if the number is in the row
+        if not self.valid_in_row(row, num):
+            return False
+
+        # Check if the number is in the column
+        if not self.valid_in_col(col, num):
+            return False
+
+        # Check if the number is in the 3x3 box
+        start_row = (row // 3) * 3
+        start_col = (col // 3) * 3
+        if not self.valid_in_box(start_row, start_col, num):
+            return False
+
+        return True
     '''
     Fills the specified 3x3 box with values
     For each position, generates a random digit which has not yet been used in the box
@@ -225,7 +239,7 @@ class SudokuGenerator:
             y = random.randrange(0, 9)
             if self.board[x][y] != 0:
                 self.board[x][y] = 0
-                removed +=1
+                removed += 1
 
 '''
 DO NOT CHANGE
