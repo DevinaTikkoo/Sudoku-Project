@@ -16,7 +16,8 @@ class Board :
         self.screen = screen
         self.difficulty = difficulty
 
-        self.board = [[Cell(0, row, col, screen) for col in range(GRID_SIZE)] for row in range(GRID_SIZE)]
+        self.board = [[Cell(og_values[row][col], row, col, screen, is_initial=(og_values[row][col] != 0))
+                       for col in range(GRID_SIZE)] for row in range(GRID_SIZE)]
         self.selected_cell = None
 
         #In main will set this equal to board from self.board
@@ -34,6 +35,13 @@ class Board :
                 if value != 0:  # If the cell is not empty, set the value
                     self.board[row][col].set_cell_value(value)
 
+        for row in range(0, GRID_SIZE, 3):
+            for col in range(0, GRID_SIZE, 3):
+                # Draw thick lines at every 3rd row and column (for 3x3 blocks)
+                pygame.draw.rect(self.screen, BLACK,
+                                 (col * CELL_SIZE, row * CELL_SIZE, 3 * CELL_SIZE, 3 * CELL_SIZE),
+                                 5)
+
 
     def select(self, row, col):
         if self.selected_cell:
@@ -46,27 +54,27 @@ class Board :
     def click(self, x, y):
 
         #Grid bounds for box
-        row = y // CELL_SIZE
-        col = x // CELL_SIZE
+        row = x // CELL_SIZE
+        col = y // CELL_SIZE
 
         if 0 <= row < GRID_SIZE and 0 <= col < GRID_SIZE:
             #calling select cell
             self.select(row,col)
             #makeing tuple to return
-            x = (row,col)
-            return x
+            return (row,col)
         return None
 
     def clear(self):
 
-        if self.selected_cell:
+        if self.selected_cell and not self.selected_cell.is_initial:
             row = self.selected_cell.row
             col = self.selected_cell.col
             self.board[row][col].set_cell_value(0)
+            self.board[row][col].sketched_value = None
 
     def sketch(self, value):
 
-        if self.selected_cell:
+        if self.selected_cell and not self.selected_cell.is_initial:
             row = self.selected_cell.row
             col = self.selected_cell.col
             self.board[row][col].set_sketched_value(value)
@@ -105,10 +113,3 @@ class Board :
             for j in range(GRID_SIZE):
                 if self.board[i][j].value == 0:
                     return tuple(i,j)
-
-
-
-
-
-
-
