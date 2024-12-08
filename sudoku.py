@@ -1,6 +1,6 @@
 import pygame
 
-from board2 import Board
+from board import Board
 import sudoku_generator
 from button import Button
 
@@ -63,7 +63,7 @@ def main():
                         for button in buttons:
                             if button.check_click(mouse_x, mouse_y):
                                 if button.txt == "EASY" and button.active == True:
-                                    sudoku = sudoku_generator.generate_sudoku(9,30)
+                                    sudoku = sudoku_generator.generate_sudoku(9,5)
                                     draw_board = Board(9,9,screen,"easy",sudoku)
                                 elif button.txt == "MEDIUM" and button.active == True:
                                     sudoku = sudoku_generator.generate_sudoku(9,40)
